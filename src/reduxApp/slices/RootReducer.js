@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import CakeReducer from './Cakes.js'
 import { increament, decreament, log} from './Cakes.js'
+import UserReducer, {fetchUsers} from './AsyncUser.js'
 
 const store = configureStore({
-    reducer: CakeReducer
-  })
+  reducer: {
+    cake: CakeReducer,
+    user: UserReducer
+  }
+})
 
   let unSub = store.subscribe(() => console.log(store.getState()))
 
@@ -13,4 +17,4 @@ const store = configureStore({
   store.dispatch(log())
   store.dispatch(decreament())
   store.dispatch(log())
-  unSub();
+  store.dispatch(fetchUsers(1))
